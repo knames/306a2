@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UI; // this one was tricky, needed that to do the gui updates
 using System.Collections;
 
 public class scoreManager : MonoBehaviour {
