@@ -4,7 +4,16 @@ using System.Collections;
 public class PlayerMobility : MonoBehaviour {
 
     public float speed;
+	public AudioClip playerDead;
     //private Rigidbody2D rb2d;
+
+
+    Animator anim;
+
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
 
 
     void FixedUpdate()
@@ -18,9 +27,38 @@ public class PlayerMobility : MonoBehaviour {
         GetComponent<Rigidbody2D>().angularVelocity = 0;
 
         float input = Input.GetAxis("Vertical");
-       GetComponent<Rigidbody2D>().AddForce(gameObject.transform.up * speed * input);
+        anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Vertical"))); // change idle/movement animation
+
+        GetComponent<Rigidbody2D>().AddForce(gameObject.transform.up * speed * input);
     }
-	
+
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "enemy" )
+        {
+            Renderer[] renderers = GetComponentsInChildren<Renderer>(); // remove player from view
+            foreach (Renderer r in renderers)
+            {
+                r.enabled = false;
+            }
+            
+
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.PlayOneShot(playerDead);
+
+			StartCoroutine(pause());
+			GetComponent<BoxCollider2D>().enabled = false; // so it doesnt spam screams if hit multiple times
+
+		}
+
+    }
+
+	IEnumerator pause()
+	{
+		yield return new WaitForSeconds(1);
+		Application.LoadLevel(Application.loadedLevel);
+	}
 }
 
 

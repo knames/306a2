@@ -11,6 +11,8 @@ public class PlayerShoot : MonoBehaviour
     public GameObject fireAnimation;
     int bulletLayer;
 
+    public AudioClip shotFired;
+
     public float fireDelay = 0.25f;
     float cooldownTimer = 0;
 
@@ -26,6 +28,7 @@ public class PlayerShoot : MonoBehaviour
 
         if (Input.GetButton("Fire1") && cooldownTimer <= 0)
         {
+
             // SHOOT!
             cooldownTimer = fireDelay;
 
@@ -33,6 +36,11 @@ public class PlayerShoot : MonoBehaviour
             GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, transform.position + offset, transform.rotation * Quaternion.Euler(0,0,90));
             bulletGO.layer = bulletLayer;
             GameObject smoke = (GameObject)Instantiate(fireAnimation, transform.position + offset, transform.rotation * Quaternion.Euler(0, 0, 90));
+
+
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.PlayOneShot(shotFired);
+
             Destroy(smoke, 0.9f); // get rid of smoke animation
             Destroy(bulletGO, 10); // destroy bullet after it falls off the screen
             cooldownTimer = 1;

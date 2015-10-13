@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class moveForward : MonoBehaviour {
-    float maxSpeed = 5f;
+    public float maxSpeed = 8f;
     //public Vector3 direction;
 
 	// Use this for initialization

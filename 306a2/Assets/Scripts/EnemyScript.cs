@@ -5,7 +5,12 @@ public class EnemyScript : MonoBehaviour {
 
 
     public float speed;
-    public Transform player;
+    Transform player;
+
+	void Awake()
+	{
+		player = GameObject.FindGameObjectWithTag("Player").transform;
+	}
 
     void FixedUpdate()
     {
