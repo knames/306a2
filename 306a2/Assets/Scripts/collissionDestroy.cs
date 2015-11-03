@@ -36,9 +36,15 @@ public class collissionDestroy : MonoBehaviour {
         {
             if (col.gameObject.tag == "enemy")
             {
-                Destroy(col.gameObject);
-				audio.PlayOneShot(deadSpiderSound);
-				scoreManager.score+=1;
+				//GameObject spider = col.gameObject.GetComponent<EnemyScript>();
+				//spider.GetComponent(EnemyScript);
+				EnemyScript spider = col.gameObject.GetComponent<EnemyScript>();
+				spider.spiderHit();
+				if (spider.getHP() == 0){
+					Destroy(col.gameObject);
+					audio.PlayOneShot(deadSpiderSound);
+					scoreManager.score+=1;
+				}
             }
 			
 			audio.PlayOneShot(explosionSound);

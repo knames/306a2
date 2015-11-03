@@ -540,7 +540,7 @@ MonoBehaviour:
   - {fileID: 524119614}
   spawnTime: 5
   waitTime: 5
-  spawnRateIncrease: .100000001
+  spawnRateIncrease: 0
   enemy: {fileID: 169710, guid: 2b9a8626157e8914f9016ff4d5ab1563, type: 2}
 --- !u!4 &1343607950
 Transform:
